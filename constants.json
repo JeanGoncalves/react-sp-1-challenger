@@ -1,0 +1,5 @@
+{
+    "host": "api.codenation.dev",
+    "path": "/v1/challenge/dev-ps/generate-data?token=",
+    "file": "archive/answer.json"
+}
