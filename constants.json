@@ -1,5 +1,9 @@
 {
-    "host": "api.codenation.dev",
-    "path": "/v1/challenge/dev-ps/generate-data?token=",
-    "file": "archive/answer.json"
+    "get": {
+        "url": "https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token="
+    },
+    "post": {
+        "url": "https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token="
+    },
+    "file": "answer.json"
 }
