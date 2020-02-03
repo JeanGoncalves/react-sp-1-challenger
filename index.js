@@ -12,7 +12,6 @@ const token = process.env.TOKEN
 console.log(' - INIT: APP')
 
 function getJson (options) {
-	let init = new Date()
 	console.log(' - INIT: getJson')
 
 	request.get({
@@ -22,11 +21,10 @@ function getJson (options) {
         saveFile(json)
 	});
 	
-	console.log(' - END:  getJson', Math.abs(new Date() - init))
+	console.log(' - END:  getJson')
 }
 
 function sendJson () {
-	let init = new Date()
 	console.log(' - INIT: sendJson')
 	const form = new FormData()
 	form.append('answer', fs.createReadStream(CONSTANT.file))
@@ -44,22 +42,18 @@ function sendJson () {
 
     form.pipe(req)
     
-    console.log(form.getHeaders())
-	
-    console.log(' - END:  sendJson', Math.abs(new Date() - init))
+    console.log(' - END:  sendJson')
 }
 
 function editJson (json) {
-	let init = new Date()
     console.log(' - INIT: editJson')
     json.decifrado = decrypt(json.numero_casas, json.cifrado)
     json.resumo_criptografico = sha1(json.decifrado)
-    console.log(' - END:  editJson', Math.abs(new Date() - init))
+    console.log(' - END:  editJson')
     return json
 }
 
 function saveFile (json) {
-	let init = new Date()
     console.log(' - INIT: saveFile')
 
     fs.writeFile(
@@ -74,11 +68,10 @@ function saveFile (json) {
 			});
         }
     )
-    console.log(' - END:  saveFile', Math.abs(new Date() - init))
+    console.log(' - END:  saveFile')
 }
 
 function decrypt (key, value) {
-	let init = new Date
     console.log(' - INIT: decrypt')
     const alphabet = Array.from({length: 26}, (v, i) => String.fromCharCode(i + 97))
     let response = value.split('')
@@ -92,7 +85,7 @@ function decrypt (key, value) {
             return alphabet[alphabet.indexOf(letter) - key]
         })
         .join('')
-	console.log(' - END:  decrypt', Math.abs(new Date() - init))
+	console.log(' - END:  decrypt')
     return response
 }
 
