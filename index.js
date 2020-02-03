@@ -34,8 +34,7 @@ function sendJson () {
 	const options = {
 		method: "POST",
 		url: CONSTANT.post.url + token,
-		port: 443,
-		headers: form.getHeaders()
+        headers: form.getHeaders()
 	};
 	
 	const req = request(options, function (err, res, body) {
@@ -43,7 +42,9 @@ function sendJson () {
 		console.log(body);
 	});
 
-	form.pipe(req)
+    form.pipe(req)
+    
+    console.log(form.getHeaders())
 	
     console.log(' - END:  sendJson', Math.abs(new Date() - init))
 }
@@ -59,7 +60,8 @@ function editJson (json) {
 
 function saveFile (json) {
 	let init = new Date()
-	console.log(' - INIT: saveFile')
+    console.log(' - INIT: saveFile')
+
     fs.writeFile(
         CONSTANT.file,
         json,
@@ -79,17 +81,20 @@ function decrypt (key, value) {
 	let init = new Date
     console.log(' - INIT: decrypt')
     const alphabet = Array.from({length: 26}, (v, i) => String.fromCharCode(i + 97))
-	let response = value.split('')
-		.map(letter => 
-				alphabet.indexOf(letter) == -1
-				? letter
-				: alphabet[alphabet.indexOf(letter) - key]
-			)
-		.join('')
+    let response = value.split('')
+        .map(letter => {
+            if (alphabet.indexOf(letter) == -1) {
+                return letter
+            }
+            else if (alphabet.indexOf(letter) < key) {
+                return alphabet[alphabet.indexOf(letter) - key + 26]
+            }
+            return alphabet[alphabet.indexOf(letter) - key]
+        })
+        .join('')
 	console.log(' - END:  decrypt', Math.abs(new Date() - init))
     return response
 }
-
 
 getJson({
 	host: CONSTANT.host,
